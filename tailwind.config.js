@@ -35,7 +35,11 @@ export default {
         7: "#F9E0FD",
       },
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        lato: ["Lato", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
