@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <main className="font-lato">
-      <h1>dancok</h1>
-    </main>
-  );
+  return <main className="font-lato"></main>;
 }
 
 export default App;
