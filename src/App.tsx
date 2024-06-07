@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 export function App() {
   return (
     <>
-      <main className="bg-[#fff]">
+      <main className="bg-[#fff] py-6 px-8 rounded-[5px] border border-[#828282]">
         <Outlet />
       </main>
 

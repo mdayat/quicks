@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+
 import { App } from "./App";
+import { Inbox } from "./pages/inbox";
 
 export const router = createBrowserRouter([
   {
@@ -8,7 +10,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "inboxes",
-        element: <div>this is inboxes</div>,
+        element: <Inbox />,
       },
       {
         path: "inboxes/:inboxID",

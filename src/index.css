@@ -5,7 +5,7 @@
   }
 
   #root {
-    @apply font-lato max-w-screen-md mx-auto;
+    @apply font-lato max-w-[734px] mx-auto;
   }
 }
 
