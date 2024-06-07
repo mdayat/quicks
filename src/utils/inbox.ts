@@ -1,5 +1,25 @@
-import type { Message } from "../data/inbox";
+import type { Inbox, Message } from "../data/inbox";
 import { useEffect, useState } from "react";
+
+// Simulating API request to the server with timeout
+function getInboxes(): Promise<Inbox[]> {
+  const promise = new Promise<Inbox[]>((resolve) => {
+    setTimeout(() => {
+      resolve([]);
+    }, 500);
+  });
+  return promise;
+}
+
+// Simulating API request to the server with timeout
+function searchInbox(): Promise<Inbox[]> {
+  const promise = new Promise<Inbox[]>((resolve) => {
+    setTimeout(() => {
+      resolve([]);
+    }, 500);
+  });
+  return promise;
+}
 
 // Count the participants by looping through all messages, and
 // identify each participant by "userID".
@@ -35,4 +55,4 @@ function useDebounce(value: string, delay: number): string {
   return debouncedValue;
 }
 
-export { getParticipants, useDebounce };
+export { getInboxes, searchInbox, getParticipants, useDebounce };
