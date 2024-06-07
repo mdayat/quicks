@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 
 import { SearchInbox } from "../components/SearchInbox";
+import { Loader } from "../components/Loader";
 import { getInboxes, searchInbox, useDebounce } from "../utils/inbox";
 import type { Inbox } from "../data/inbox";
 
 export function Inbox(): JSX.Element {
   const [inboxes, setInboxes] = useState<Inbox[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 750);
 
   useEffect(() => {
-    const loadingEl = document.getElementById("loading") as HTMLDivElement;
-    if (loadingEl.classList.contains("hidden")) {
-      loadingEl.classList.remove("hidden");
-    }
-
+    setIsLoading(true);
     if (debouncedSearchValue === "") {
       getInboxes()
         .then((inboxes) => {
-          loadingEl.classList.add("hidden");
+          setIsLoading(false);
           if (inboxes.length !== 0) {
             setInboxes(inboxes);
           }
@@ -29,7 +28,7 @@ export function Inbox(): JSX.Element {
     } else {
       searchInbox()
         .then((inboxes) => {
-          loadingEl.classList.add("hidden");
+          setIsLoading(false);
           if (inboxes.length !== 0) {
             setInboxes(inboxes);
           }
@@ -40,13 +39,22 @@ export function Inbox(): JSX.Element {
     }
   }, [debouncedSearchValue]);
 
+  if (isLoading) {
+    return (
+      <>
+        <SearchInbox
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+        {isLoading ? <Loader text="Loading Chats..." /> : <></>}
+      </>
+    );
+  }
+
   return (
     <>
       <SearchInbox searchValue={searchValue} setSearchValue={setSearchValue} />
-
-      <div>
-        <div id="loading">LOADING</div>
-
+      <div className="h-[calc(737px-48px-32px)] overflow-y-scroll">
         {inboxes.length !== 0 ? (
           <div>List of inboxes</div>
         ) : (

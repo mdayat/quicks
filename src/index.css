@@ -10,4 +10,10 @@
 }
 
 @tailwind components;
+@layer utilities {
+  .loader {
+    @apply inline-block box-border animate-rotation w-14 h-14 border-[6px] border-[#c4c4c4] border-b-transparent rounded-[50%];
+  }
+}
+
 @tailwind utilities;
