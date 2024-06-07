@@ -25,7 +25,7 @@ export function Inbox(): JSX.Element {
           // Handle and log the error
         });
     } else {
-      searchInbox()
+      searchInbox(debouncedSearchValue)
         .then((inboxList) => {
           setIsLoading(false);
           setInboxList(inboxList);

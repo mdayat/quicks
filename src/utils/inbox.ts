@@ -14,10 +14,19 @@ function getInboxes(): Promise<InboxItem[]> {
 }
 
 // Simulating API request to the server with timeout
-function searchInbox(): Promise<InboxItem[]> {
+function searchInbox(searchValue: string): Promise<InboxItem[]> {
   const promise = new Promise<InboxItem[]>((resolve) => {
     setTimeout(() => {
-      resolve([]);
+      const obtainedInboxes: InboxItem[] = new Array(inboxList.length);
+      for (let i = 0; i < inboxList.length; i++) {
+        const inbox = inboxList[i];
+        if (inbox.name.toLowerCase().includes(searchValue.toLowerCase())) {
+          console.log("SINI");
+          obtainedInboxes.push(inbox);
+        }
+      }
+
+      resolve(obtainedInboxes);
     }, 500);
   });
   return promise;
