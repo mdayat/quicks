@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
 import { SearchInbox } from "../components/SearchInbox";
+import { InboxItem } from "../components/InboxItem";
 import { Loader } from "../components/Loader";
 import { getInboxes, searchInbox, useDebounce } from "../utils/inbox";
-import type { Inbox } from "../data/inbox";
+import type { InboxItem as InboxItemType } from "../data/inbox";
 
 export function Inbox(): JSX.Element {
-  const [inboxes, setInboxes] = useState<Inbox[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [inboxList, setInboxList] = useState<InboxItemType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 750);
@@ -16,22 +17,18 @@ export function Inbox(): JSX.Element {
     setIsLoading(true);
     if (debouncedSearchValue === "") {
       getInboxes()
-        .then((inboxes) => {
+        .then((inboxList) => {
           setIsLoading(false);
-          if (inboxes.length !== 0) {
-            setInboxes(inboxes);
-          }
+          setInboxList(inboxList);
         })
         .catch(() => {
           // Handle and log the error
         });
     } else {
       searchInbox()
-        .then((inboxes) => {
+        .then((inboxList) => {
           setIsLoading(false);
-          if (inboxes.length !== 0) {
-            setInboxes(inboxes);
-          }
+          setInboxList(inboxList);
         })
         .catch(() => {
           // Handle and log the error
@@ -54,11 +51,13 @@ export function Inbox(): JSX.Element {
   return (
     <>
       <SearchInbox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <div className="h-[calc(737px-48px-32px)] overflow-y-scroll">
-        {inboxes.length !== 0 ? (
-          <div>List of inboxes</div>
+      <div className="h-[calc(737px-48px-32px)] overflow-y-scroll flex flex-col">
+        {inboxList.length !== 0 ? (
+          inboxList.map((inbox) => {
+            return <InboxItem key={inbox.id} {...inbox} />;
+          })
         ) : (
-          <div>Inboxes are empty</div>
+          <div>There is no inbox</div>
         )}
       </div>
     </>

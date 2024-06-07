@@ -1,19 +1,21 @@
-import type { Inbox, Message } from "../data/inbox";
 import { useEffect, useState } from "react";
 
+import { inboxList } from "../data/inbox";
+import type { InboxItem, Message } from "../data/inbox";
+
 // Simulating API request to the server with timeout
-function getInboxes(): Promise<Inbox[]> {
-  const promise = new Promise<Inbox[]>((resolve) => {
+function getInboxes(): Promise<InboxItem[]> {
+  const promise = new Promise<InboxItem[]>((resolve) => {
     setTimeout(() => {
-      resolve([]);
+      resolve(inboxList);
     }, 500);
   });
   return promise;
 }
 
 // Simulating API request to the server with timeout
-function searchInbox(): Promise<Inbox[]> {
-  const promise = new Promise<Inbox[]>((resolve) => {
+function searchInbox(): Promise<InboxItem[]> {
+  const promise = new Promise<InboxItem[]>((resolve) => {
     setTimeout(() => {
       resolve([]);
     }, 500);

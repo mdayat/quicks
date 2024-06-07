@@ -1,22 +1,20 @@
-import { v4 as uuidv4 } from "uuid";
-
 type InboxType = "group" | "single";
-interface Inbox {
+interface InboxItem {
   id: string;
   name: string;
   type: InboxType;
   participants?: number;
 }
 
-const inboxes: Inbox[] = [
+const inboxList: InboxItem[] = [
   {
-    id: uuidv4(),
+    id: "91647f64-e715-4c38-8ab3-a7a723073c71",
     name: "Group Type Inbox",
     type: "group",
   },
 
   {
-    id: uuidv4(),
+    id: "3ca3a288-a3b3-452a-a519-6fa326235360",
     name: "Non-Group (Single) Type Inbox",
     type: "single",
   },
@@ -30,5 +28,5 @@ interface Message {
   isUnread: boolean;
 }
 
-export { inboxes };
-export type { Inbox, Message };
+export { inboxList };
+export type { InboxItem, Message };
