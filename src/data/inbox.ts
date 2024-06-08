@@ -22,6 +22,7 @@ const inboxList: InboxItem[] = [
 
 interface Message {
   id: string;
+  inboxID: string;
   userID: string;
   userName: string;
   content: string;
@@ -33,6 +34,7 @@ const messages: Message[] = [
   // Newer month message
   {
     id: "4303fd34-572a-4b32-a60f-8685a8a5273e",
+    inboxID: inboxList[0].id,
     userID: "4be83876-ac76-454c-9b89-bacb32e2d6aa",
     userName: "Anne",
     content: "World, Hello!",
@@ -42,6 +44,7 @@ const messages: Message[] = [
   // Today message, but unread (the newest)
   {
     id: "1fa84294-1135-47b3-93c9-9293884116a5",
+    inboxID: inboxList[0].id,
     userID: "7aa5ff65-199b-4bb3-8056-3be9546d4786",
     userName: "Bob",
     content: "Try solidjs, it's great!",
@@ -51,6 +54,7 @@ const messages: Message[] = [
   // Today message
   {
     id: "e1be1b76-0d78-484c-8f51-7bfb4706d39e",
+    inboxID: inboxList[0].id,
     userID: "970d9dee-addd-495f-93f9-3d9ebec69611",
     userName: "Drake",
     content: "Go is the greatest!",
@@ -65,10 +69,41 @@ const messages: Message[] = [
   // Older month message
   {
     id: "65549186-e14b-43a5-b29b-94e847026e02",
+    inboxID: inboxList[0].id,
     userID: "c99877a0-92ae-4177-a830-1c54d4092479",
     userName: "John Doe",
     content: "Hello World!",
     isoDate: "2024-05-31T05:00:38.000Z",
+    isUnread: false,
+  },
+  // Today message
+  {
+    id: "5da3907f-392e-4b21-b5cc-600af4272151",
+    inboxID: inboxList[1].id,
+    userID: "970d9dee-addd-495f-93f9-3d9ebec69611",
+    userName: "Drake",
+    content: "Hi Bob!",
+    isoDate: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      3
+    ).toISOString(),
+    isUnread: false,
+  },
+  // Today message, but unread (the newest)
+  {
+    id: "9c24bd77-784f-4fa6-8ba6-79d5d501ee29",
+    inboxID: inboxList[1].id,
+    userID: "7aa5ff65-199b-4bb3-8056-3be9546d4786",
+    userName: "Bob",
+    content: "Hi Drake!",
+    isoDate: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      2
+    ).toISOString(),
     isUnread: false,
   },
 ];

@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { SearchInbox } from "../components/SearchInbox";
 import { InboxItem } from "../components/InboxItem";
 import { Loader } from "../components/Loader";
-import { getInboxes, searchInbox, useDebounce } from "../utils/inbox";
+import { useDebounce } from "../hooks/useDebounce";
+import { getInboxes, searchInbox } from "../api/inbox";
 import type { InboxItem as InboxItemType } from "../data/inbox";
 
 export function Inbox(): JSX.Element {

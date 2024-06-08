@@ -1,59 +1,21 @@
-import { useEffect, useState } from "react";
+import type { GroupedMessages, Message } from "../data/inbox";
 
-import { inboxList, messages } from "../data/inbox";
-import type {
-  GroupedMessages,
-  InboxDetail,
-  InboxItem,
-  Message,
-} from "../data/inbox";
+// Count the participants by looping through all messages, and
+// identify each participant by "userID".
+// This to ensure data integrity since we are not leveraging Relational Database.
+function countParticipants(inboxMessages: Message[]): number {
+  let participants = 0;
+  const recordedUserID: string[] = [];
 
-// Simulating API request to the server with timeout
-function getInboxes(): Promise<InboxItem[]> {
-  const promise = new Promise<InboxItem[]>((resolve) => {
-    setTimeout(() => {
-      resolve(inboxList);
-    }, 500);
-  });
-  return promise;
-}
+  for (let i = 0; i < inboxMessages.length; i++) {
+    const message = inboxMessages[i];
+    if (!recordedUserID.includes(message.userID)) {
+      recordedUserID.push(message.userID);
+      participants++;
+    }
+  }
 
-function getMessages(): Promise<Message[]> {
-  const promise = new Promise<Message[]>((resolve) => {
-    setTimeout(() => {
-      resolve(messages);
-    }, 500);
-  });
-  return promise;
-}
-
-function getInboxDetail(inboxID: string): Promise<unknown> {
-  const promise = new Promise<unknown>((resolve) => {
-    Promise.all([getInboxes(), getMessages()])
-      .then(([inboxes, messages]) => {
-        const inbox = inboxes.find(({ id }) => id === inboxID);
-        if (inbox === undefined) {
-          resolve(inbox);
-          return;
-        }
-
-        const inboxDetail: InboxDetail = {
-          id: inbox.id,
-          name: inbox.name,
-          participants: getParticipants(messages),
-          groupedMessages: new Map(),
-        };
-
-        sortMessageFromOldestToNewest(messages);
-        const groupedMessages = groupMessagesByDate(messages);
-        inboxDetail.groupedMessages = groupedMessages;
-        resolve(inboxDetail);
-      })
-      .catch(() => {
-        // Handle and log the error
-      });
-  });
-  return promise;
+  return participants;
 }
 
 // Sort messages from oldest to newest using bubble sort by modifying it directly
@@ -80,6 +42,7 @@ function sortMessageFromOldestToNewest(messages: Message[]): Message[] {
   return messages;
 }
 
+// Group the sorted messages by its date (month and date)
 function groupMessagesByDate(sortedMessages: Message[]): GroupedMessages {
   const groupedMessages: GroupedMessages = new Map();
   for (let i = 0; i < sortedMessages.length; i++) {
@@ -117,58 +80,8 @@ function groupMessagesByDate(sortedMessages: Message[]): GroupedMessages {
   return groupedMessages;
 }
 
-// Simulating API request to the server with timeout
-function searchInbox(searchValue: string): Promise<InboxItem[]> {
-  const promise = new Promise<InboxItem[]>((resolve) => {
-    setTimeout(() => {
-      getInboxes()
-        .then((inboxes) => {
-          const obtainedInboxes: InboxItem[] = inboxes.filter(({ name }) => {
-            return name.toLowerCase().includes(searchValue.toLowerCase());
-          });
-
-          resolve(obtainedInboxes);
-        })
-        .catch(() => {
-          // Handle and log the error
-        });
-    }, 500);
-  });
-  return promise;
-}
-
-// Count the participants by looping through all messages, and
-// identify each participant by "userID".
-// This to ensure data integrity since we are not leveraging Relational Database.
-function getParticipants(inboxMessages: Message[]): number {
-  let participants = 0;
-  const recordedUserID: string[] = [];
-
-  for (let i = 0; i < inboxMessages.length; i++) {
-    const message = inboxMessages[i];
-    if (!recordedUserID.includes(message.userID)) {
-      recordedUserID.push(message.userID);
-      participants++;
-    }
-  }
-
-  return participants;
-}
-
-function useDebounce(value: string, delay: number): string {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
-
-export { getInboxes, getInboxDetail, searchInbox, useDebounce };
+export {
+  countParticipants,
+  groupMessagesByDate,
+  sortMessageFromOldestToNewest,
+};
