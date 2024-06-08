@@ -1,5 +1,20 @@
 import type { GroupedMessages, Inbox, Message } from "../data/inbox";
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 // Count the participants by looping through all messages, and
 // identify each participant by "userID".
 // This to ensure data integrity since we are not leveraging Relational Database.
@@ -80,6 +95,7 @@ function groupMsgByDate(sortedMessages: Message[]): GroupedMessages {
   return groupedMessages;
 }
 
+// Sort inboxes from newest to oldest using bubble sort by modifying it directly
 function sortInboxFromNewestToOldest(inboxes: Inbox[]): Inbox[] {
   let swapping = true;
   let end = inboxes.length - 1;
@@ -109,6 +125,7 @@ function sortInboxFromNewestToOldest(inboxes: Inbox[]): Inbox[] {
 }
 
 export {
+  months,
   countParticipants,
   groupMsgByDate,
   sortMsgFromOldestToNewest,

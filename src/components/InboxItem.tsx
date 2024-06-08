@@ -2,9 +2,22 @@ import { Link } from "react-router-dom";
 import type { MouseEvent } from "react";
 
 import { Person } from "../icons/Person";
+import { months } from "../utils/inbox";
 import type { Inbox } from "../data/inbox";
 
-export function InboxItem({ id, name }: Inbox): JSX.Element {
+export function InboxItem({ id, name, lastMessage }: Inbox): JSX.Element {
+  const messageYear = new Date(lastMessage.isoDate).getFullYear();
+  const messageMonth = months[new Date(lastMessage.isoDate).getMonth()];
+  const messageDate = new Date(lastMessage.isoDate).getDate();
+
+  const messageHours = String(
+    new Date(lastMessage.isoDate).getHours()
+  ).padStart(2, "0");
+
+  const messageMinutes = String(
+    new Date(lastMessage.isoDate).getMinutes()
+  ).padStart(2, "0");
+
   function focusToAnchor(event: MouseEvent<HTMLDivElement>) {
     const anchorEl = document.getElementById(id) as HTMLAnchorElement;
     anchorEl.focus();
@@ -43,16 +56,24 @@ export function InboxItem({ id, name }: Inbox): JSX.Element {
             </h2>
 
             <p className="text-primary-2 leading-none text-sm">
-              January 1,2021 19:10
+              {`${messageMonth} ${messageDate}, ${messageYear} ${messageHours}:${messageMinutes}`}
             </p>
           </div>
 
           <p className="text-primary-2 font-bold leading-none text-sm">
-            Last user name :
+            {lastMessage.userName}
           </p>
+
           <div className="flex justify-between items-center">
-            <p className="text-primary-2 leading-none text-sm">The message</p>
-            <span className="bg-indicator-3 w-2.5 h-2.5 rounded-full"></span>
+            <p className="text-primary-2 leading-none text-sm">
+              {lastMessage.content}
+            </p>
+
+            {lastMessage.isUnread ? (
+              <span className="bg-indicator-3 w-2.5 h-2.5 rounded-full"></span>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
