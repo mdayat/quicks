@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import type { MouseEvent } from "react";
 
 import { Person } from "../icons/Person";
-import type { InboxItem as InboxItemType } from "../data/inbox";
+import type { Inbox } from "../data/inbox";
 
-export function InboxItem({ id, name }: InboxItemType): JSX.Element {
+export function InboxItem({ id, name }: Inbox): JSX.Element {
   function focusToAnchor(event: MouseEvent<HTMLDivElement>) {
     const anchorEl = document.getElementById(id) as HTMLAnchorElement;
     anchorEl.focus();

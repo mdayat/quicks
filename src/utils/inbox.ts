@@ -1,4 +1,4 @@
-import type { GroupedMessages, Message } from "../data/inbox";
+import type { GroupedMessages, Inbox, Message } from "../data/inbox";
 
 // Count the participants by looping through all messages, and
 // identify each participant by "userID".
@@ -19,7 +19,7 @@ function countParticipants(inboxMessages: Message[]): number {
 }
 
 // Sort messages from oldest to newest using bubble sort by modifying it directly
-function sortMessageFromOldestToNewest(messages: Message[]): Message[] {
+function sortMsgFromOldestToNewest(messages: Message[]): Message[] {
   let swapping = true;
   let end = messages.length - 1;
 
@@ -43,7 +43,7 @@ function sortMessageFromOldestToNewest(messages: Message[]): Message[] {
 }
 
 // Group the sorted messages by its date (month and date)
-function groupMessagesByDate(sortedMessages: Message[]): GroupedMessages {
+function groupMsgByDate(sortedMessages: Message[]): GroupedMessages {
   const groupedMessages: GroupedMessages = new Map();
   for (let i = 0; i < sortedMessages.length; i++) {
     const message = sortedMessages[i];
@@ -80,8 +80,37 @@ function groupMessagesByDate(sortedMessages: Message[]): GroupedMessages {
   return groupedMessages;
 }
 
+function sortInboxFromNewestToOldest(inboxes: Inbox[]): Inbox[] {
+  let swapping = true;
+  let end = inboxes.length - 1;
+
+  while (swapping) {
+    swapping = false;
+    for (let i = 0; i < end; i++) {
+      const currentMsgUnixTime = new Date(
+        inboxes[i].lastMessage.isoDate
+      ).getTime();
+
+      const nextMsgUnixTime = new Date(
+        inboxes[i + 1].lastMessage.isoDate
+      ).getTime();
+
+      if (currentMsgUnixTime < nextMsgUnixTime) {
+        const temp = inboxes[i];
+        inboxes[i] = inboxes[i + 1];
+        inboxes[i + 1] = temp;
+        swapping = true;
+      }
+    }
+    end--;
+  }
+
+  return inboxes;
+}
+
 export {
   countParticipants,
-  groupMessagesByDate,
-  sortMessageFromOldestToNewest,
+  groupMsgByDate,
+  sortMsgFromOldestToNewest,
+  sortInboxFromNewestToOldest,
 };
