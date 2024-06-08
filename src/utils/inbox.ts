@@ -121,16 +121,17 @@ function groupMessagesByDate(sortedMessages: Message[]): GroupedMessages {
 function searchInbox(searchValue: string): Promise<InboxItem[]> {
   const promise = new Promise<InboxItem[]>((resolve) => {
     setTimeout(() => {
-      const obtainedInboxes: InboxItem[] = new Array(inboxList.length);
-      for (let i = 0; i < inboxList.length; i++) {
-        const inbox = inboxList[i];
-        if (inbox.name.toLowerCase().includes(searchValue.toLowerCase())) {
-          console.log("SINI");
-          obtainedInboxes.push(inbox);
-        }
-      }
+      getInboxes()
+        .then((inboxes) => {
+          const obtainedInboxes: InboxItem[] = inboxes.filter(({ name }) => {
+            return name.toLowerCase().includes(searchValue.toLowerCase());
+          });
 
-      resolve(obtainedInboxes);
+          resolve(obtainedInboxes);
+        })
+        .catch(() => {
+          // Handle and log the error
+        });
     }, 500);
   });
   return promise;
