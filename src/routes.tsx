@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { App } from "./App";
-import { Inbox } from "./pages/inbox";
+import { Inbox } from "./pages/Inbox";
+import { InboxDetail } from "./pages/InboxDetail";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "inboxes/:inboxID",
-        element: <div>this is inboxes with dynamic</div>,
+        element: <InboxDetail />,
       },
       {
         path: "tasks",
