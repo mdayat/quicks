@@ -5,7 +5,7 @@ import { Person } from "../icons/Person";
 import { months } from "../utils/inbox";
 import type { Inbox } from "../data/inbox";
 
-export function InboxItem({ id, name, lastMessage }: Inbox): JSX.Element {
+export function InboxItem({ id, name, type, lastMessage }: Inbox): JSX.Element {
   const messageYear = new Date(lastMessage.isoDate).getFullYear();
   const messageMonth = months[new Date(lastMessage.isoDate).getMonth()];
   const messageDate = new Date(lastMessage.isoDate).getDate();
@@ -38,13 +38,23 @@ export function InboxItem({ id, name, lastMessage }: Inbox): JSX.Element {
         onMouseEnter={focusToAnchor}
       >
         <div className="self-start relative w-14">
-          <div className="bg-primary-1 absolute top-0 right-0 z-10 p-[11px] rounded-full">
-            <Person className="fill-[#fff] w-3 h-3" />
-          </div>
+          {type === "group" ? (
+            <>
+              <div className="bg-primary-1 absolute top-0 right-0 z-10 p-[11px] rounded-full">
+                <Person className="fill-[#fff] w-3 h-3" />
+              </div>
 
-          <div className="bg-primary-4 absolute top-0 left-0 p-[11px] rounded-full">
-            <Person className="fill-primary-2 w-3 h-3" />
-          </div>
+              <div className="bg-primary-4 absolute top-0 left-0 p-[11px] rounded-full">
+                <Person className="fill-primary-2 w-3 h-3" />
+              </div>
+            </>
+          ) : (
+            <div className="bg-primary-1 w-[34px] h-[34px] flex justify-center items-center rounded-full mx-auto">
+              <span className="text-[#fff] text-xs leading-none">
+                {name[0]}
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="w-full flex flex-col justify-between gap-y-1">
