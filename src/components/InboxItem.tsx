@@ -34,7 +34,7 @@ export function InboxItem({ id, name, type, lastMessage }: Inbox): JSX.Element {
   return (
     <>
       <div
-        className="cursor-pointer flex items-center gap-x-4 [&:first-child]:mt-[22px]"
+        className="cursor-pointer flex items-center gap-x-4"
         onMouseEnter={focusToAnchor}
       >
         <div className="self-start relative w-14">

@@ -83,7 +83,7 @@ export function Inbox(): JSX.Element {
   return (
     <>
       <SearchInbox searchValue={searchValue} setSearchValue={setSearchValue} />
-      <div className="h-[calc(737px-48px-32px)] overflow-y-scroll flex flex-col">
+      <div className="h-[calc(737px-48px-32px-22px)] overflow-y-scroll flex flex-col">
         {inboxes.length !== 0 ? (
           inboxes.map((inbox) => {
             return <InboxItem key={inbox.id} {...inbox} />;

@@ -41,7 +41,7 @@ export function SearchInbox({
   return (
     <form
       action=""
-      className="flex justify-between items-center border border-[#828282] rounded-[5px] h-8 px-14 transition-all duration-300"
+      className="transition-all duration-300 flex justify-between items-center border border-[#828282] rounded-[5px] h-8 px-14 mb-[22px]"
     >
       <input
         type="text"
