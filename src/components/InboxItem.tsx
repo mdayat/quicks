@@ -65,9 +65,12 @@ export function InboxItem({ id, name, type, lastMessage }: Inbox): JSX.Element {
               </Link>
             </h2>
 
-            <p className="text-primary-2 leading-none text-sm">
+            <time
+              className="text-primary-2 leading-none text-sm"
+              dateTime={`${messageYear}-${messageMonth}-${messageDate}`}
+            >
               {`${messageMonth} ${messageDate}, ${messageYear} ${messageHours}:${messageMinutes}`}
-            </p>
+            </time>
           </div>
 
           <p className="text-primary-2 font-bold leading-none text-sm">

@@ -89,8 +89,7 @@ const messages: Message[] = [
     isoDate: new Date(
       new Date().getFullYear(),
       new Date().getMonth(),
-      new Date().getDate(),
-      1
+      new Date().getDate() - 1
     ).toISOString(),
     isUnread: false,
   },
@@ -103,8 +102,7 @@ const messages: Message[] = [
     isoDate: new Date(
       new Date().getFullYear(),
       new Date().getMonth(),
-      new Date().getDate(),
-      1
+      new Date().getDate() - 1
     ).toISOString(),
     isUnread: false,
   },
