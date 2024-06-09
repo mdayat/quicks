@@ -1,4 +1,9 @@
-import type { GroupedMessages, Inbox, Message } from "../data/inbox";
+import type {
+  ChatColorByUserID,
+  GroupedMessages,
+  Inbox,
+  Message,
+} from "../data/inbox";
 
 const months = [
   "January",
@@ -13,6 +18,21 @@ const months = [
   "October",
   "November",
   "December",
+];
+
+const chatColor = [
+  {
+    message: "#FCEED3",
+    userName: "#E5A443",
+  },
+  {
+    message: "#EEDCFF",
+    userName: "#9B51E0",
+  },
+  {
+    message: "#D2F2EA",
+    userName: "#43B78D",
+  },
 ];
 
 // Count the participants by looping through all messages, and
@@ -31,6 +51,38 @@ function countParticipants(inboxMessages: Message[]): number {
   }
 
   return participants;
+}
+
+// Determine each participants chat color by looping through all messages, and
+// identify each participant by "userID".
+// This is primarily used in "group" type inbox.
+function determineChatColorByUserID(
+  inboxMessages: Message[]
+): ChatColorByUserID[] {
+  const chatColorsByUserID: ChatColorByUserID[] = [];
+  let chatColorIndexTracker = 0;
+
+  for (let i = 0; i < inboxMessages.length; i++) {
+    const message = inboxMessages[i];
+    const isUserIDExisted = chatColorsByUserID.find(
+      ({ userID }) => userID === message.userID
+    );
+
+    if (!isUserIDExisted) {
+      chatColorsByUserID.push({
+        userID: message.userID,
+        msgColor: chatColor[chatColorIndexTracker].message,
+        userNameColor: chatColor[chatColorIndexTracker].userName,
+      });
+
+      chatColorIndexTracker++;
+      if (chatColorIndexTracker > chatColor.length - 1) {
+        chatColorIndexTracker = 0;
+      }
+    }
+  }
+
+  return chatColorsByUserID;
 }
 
 // Sort messages from oldest to newest using bubble sort by modifying it directly
@@ -127,7 +179,8 @@ function sortInboxFromNewestToOldest(inboxes: Inbox[]): Inbox[] {
 export {
   months,
   countParticipants,
-  groupMsgByDate,
+  determineChatColorByUserID,
   sortMsgFromOldestToNewest,
+  groupMsgByDate,
   sortInboxFromNewestToOldest,
 };

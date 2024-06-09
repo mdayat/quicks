@@ -60,6 +60,15 @@ const messages: Message[] = [
     isoDate: "2024-06-01T05:00:38.000Z",
     isUnread: false,
   },
+  {
+    id: "b6387750-ce4b-47f6-9b90-0fe8c5854f12",
+    inboxID: inboxes[0].id,
+    userID: "4be83876-ac76-454c-9b89-bacb32e2d6aa",
+    userName: "Anne",
+    content: "World, Hello!",
+    isoDate: "2024-06-01T05:00:38.000Z",
+    isUnread: false,
+  },
   // Today message, but unread (the newest)
   {
     id: "1fa84294-1135-47b3-93c9-9293884116a5",
@@ -85,9 +94,32 @@ const messages: Message[] = [
     ).toISOString(),
     isUnread: false,
   },
+  {
+    id: "84dd1869-34d2-4f4f-a638-67a546a69cbe",
+    inboxID: inboxes[0].id,
+    userID: "970d9dee-addd-495f-93f9-3d9ebec69611",
+    userName: "Drake",
+    content: "Go is the greatest!",
+    isoDate: new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      1
+    ).toISOString(),
+    isUnread: false,
+  },
   // Older month message
   {
     id: "65549186-e14b-43a5-b29b-94e847026e02",
+    inboxID: inboxes[0].id,
+    userID: "c99877a0-92ae-4177-a830-1c54d4092479",
+    userName: "John Doe",
+    content: "Hello World!",
+    isoDate: "2024-05-31T05:00:38.000Z",
+    isUnread: false,
+  },
+  {
+    id: "1bde8c0e-84e8-4940-8736-1ae4602dceaa",
     inboxID: inboxes[0].id,
     userID: "c99877a0-92ae-4177-a830-1c54d4092479",
     userName: "John Doe",
@@ -127,10 +159,17 @@ const messages: Message[] = [
   },
 ];
 
+interface ChatColorByUserID {
+  userID: string;
+  msgColor: string;
+  userNameColor: string;
+}
+
 type GroupedMessages = Map<string, Map<string, Message[]>>;
 interface InboxDetail extends Omit<Inbox, "type" | "lastMessage"> {
   groupedMessages: GroupedMessages;
+  participantsChatColor: ChatColorByUserID[];
 }
 
 export { inboxes, messages };
-export type { Inbox, InboxDetail, Message, GroupedMessages };
+export type { Inbox, InboxDetail, Message, GroupedMessages, ChatColorByUserID };

@@ -5,7 +5,12 @@ import { InboxContent } from "../components/InboxDetailContent";
 import { ArrowBack } from "../icons/ArrowBack";
 import { Close } from "../icons/Close";
 import { getInbox, getMessages } from "../api/inbox";
-import { groupMsgByDate, sortMsgFromOldestToNewest } from "../utils/inbox";
+import {
+  countParticipants,
+  determineChatColorByUserID,
+  groupMsgByDate,
+  sortMsgFromOldestToNewest,
+} from "../utils/inbox";
 import type { InboxDetail as InboxDetailType } from "../data/inbox";
 
 export function InboxDetail(): JSX.Element {
@@ -31,7 +36,8 @@ export function InboxDetail(): JSX.Element {
         const inboxDetail: InboxDetailType = {
           id: inbox.id,
           name: inbox.name,
-          participants: inbox.participants,
+          participants: countParticipants(inboxMessages),
+          participantsChatColor: determineChatColorByUserID(inboxMessages),
           groupedMessages,
         };
 
@@ -53,7 +59,7 @@ export function InboxDetail(): JSX.Element {
 
   return (
     <>
-      <div className="flex items-center justify-between pb-[22px] border-b border-b-primary-3">
+      <div className="flex items-center justify-between border-b border-b-primary-3 pb-[22px] mb-[22px]">
         <div className="flex justify-start items-center">
           <Link to="/inboxes" className="py-[11px] pr-4">
             <ArrowBack className="w-4 h-4" />
@@ -74,9 +80,12 @@ export function InboxDetail(): JSX.Element {
         </Link>
       </div>
 
-      {InboxContent(inboxDetail.groupedMessages).map(
-        (MessageGroup) => MessageGroup
-      )}
+      <div className="h-[calc(737px-48px-61px-22px)] overflow-y-scroll">
+        {InboxContent(
+          inboxDetail.groupedMessages,
+          inboxDetail.participantsChatColor
+        ).map((MessageGroupJSX) => MessageGroupJSX)}
+      </div>
     </>
   );
 }
