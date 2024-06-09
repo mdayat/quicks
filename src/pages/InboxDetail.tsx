@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { InboxContent } from "../components/InboxDetailContent";
+import { GenerateInboxContent } from "../components/InboxDetailContent";
+import { CreateMessage } from "../components/CreateMessage";
 import { ArrowBack } from "../icons/ArrowBack";
 import { Close } from "../icons/Close";
 import { getInbox, getMessages } from "../api/inbox";
@@ -11,7 +12,7 @@ import {
   groupMsgByDate,
   sortMsgFromOldestToNewest,
 } from "../utils/inbox";
-import type { InboxDetail as InboxDetailType } from "../data/inbox";
+import { type InboxDetail as InboxDetailType } from "../data/inbox";
 
 export function InboxDetail(): JSX.Element {
   const [inboxDetail, setInboxDetail] = useState<InboxDetailType>();
@@ -80,12 +81,21 @@ export function InboxDetail(): JSX.Element {
         </Link>
       </div>
 
-      <div className="h-[calc(737px-48px-61px-22px)] overflow-y-scroll">
-        {InboxContent(
+      <div
+        id="inbox_content_container"
+        className="h-[calc(737px-48px-61px-22px-40px-22px)] overflow-y-scroll"
+      >
+        {GenerateInboxContent(
           inboxDetail.groupedMessages,
           inboxDetail.participantsChatColor
         ).map((MessageGroupJSX) => MessageGroupJSX)}
       </div>
+
+      <CreateMessage
+        inboxID={inboxID as string}
+        inboxDetail={inboxDetail}
+        setInboxDetail={setInboxDetail}
+      />
     </>
   );
 }

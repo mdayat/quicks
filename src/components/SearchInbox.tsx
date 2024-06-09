@@ -49,6 +49,7 @@ export function SearchInbox({
         name="search_inbox"
         placeholder="Search"
         className="leading-none text-sm outline-none w-full"
+        autoComplete="off"
         value={searchValue}
         onChange={updateSearchValue}
         onFocus={searchOnFocus}

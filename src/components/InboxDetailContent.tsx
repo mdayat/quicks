@@ -6,7 +6,7 @@ import type {
   Message,
 } from "../data/inbox";
 
-function InboxContent(
+function GenerateInboxContent(
   groupedMessages: GroupedMessages,
   participantsChatColor: ChatColorByUserID[]
 ): JSX.Element[] {
@@ -15,12 +15,13 @@ function InboxContent(
   for (const [monthIndex, groupedMsgInDate] of groupedMessages) {
     for (const [date, messages] of groupedMsgInDate) {
       MessageGroupsJSX.push(
-        MessageGroup({
-          messages,
-          monthIndex: Number(monthIndex),
-          date: Number(date),
-          participantsChatColor,
-        })
+        <MessageGroup
+          key={`${monthIndex}-${date}`}
+          messages={messages}
+          monthIndex={Number(monthIndex)}
+          date={Number(date)}
+          participantsChatColor={participantsChatColor}
+        />
       );
     }
   }
@@ -46,7 +47,7 @@ function MessageGroup({
   const isToday = new Date().getDate() === date;
 
   return (
-    <div key={`${date}-${month}`}>
+    <>
       <div className="flex justify-between items-center gap-x-8 my-[22px]">
         <hr className="bg-primary-3 border-none h-[1px] flex-grow" />
         <time
@@ -72,7 +73,7 @@ function MessageGroup({
           />
         );
       })}
-    </div>
+    </>
   );
 }
 
@@ -127,4 +128,4 @@ function MessageContent({
   );
 }
 
-export { InboxContent };
+export { GenerateInboxContent };
