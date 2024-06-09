@@ -83,7 +83,7 @@ export function InboxDetail(): JSX.Element {
 
       <div
         id="inbox_content_container"
-        className="h-[calc(737px-48px-61px-22px-40px-22px)] overflow-y-scroll"
+        className="h-[calc(737px-48px-61px-22px-40px-22px)] overflow-y-scroll scroll-smooth"
       >
         {GenerateInboxContent(
           inboxDetail.groupedMessages,

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import type { Dispatch, FormEvent } from "react";
 
@@ -55,6 +55,13 @@ export function CreateMessage({
       divEl.scrollTo(0, divEl.scrollHeight);
     }, 0);
   }
+
+  useEffect(() => {
+    const divEl = document.getElementById(
+      "inbox_content_container"
+    ) as HTMLDivElement;
+    divEl.scrollTo(0, divEl.scrollHeight);
+  }, []);
 
   return (
     <form
