@@ -1,6 +1,6 @@
 # Quicks
 
-A pop-up-based app that comprises two alternating tools: (1) message and (2) to-do list. Apart from that, in the [Explanation](#explanation) section, I explain the reasons for my decision to choose a tech stack, code base architecture, and my approach to solving a problem.
+A simple app that comprises two alternating tools: (1) message and (2) to-do list. Apart from that, in the [Explanation](#explanation) section, I explain the reasons for my decision to choose a tech stack, code base architecture, and my approach to solving a problem.
 
 For quick hands-on, you can follow the instructions provided in the next section, and, ofc, you can modify the data directly in src/data/inbox.ts. The data that I mentioned is a variable with the names of `inboxes` and `messages`; be aware of `uuid` in both variables.
 
@@ -26,7 +26,7 @@ To check if the code complies with best practices:
   pnpm check-lint && pnpm check-format
 ```
 
-Lastly, to check if all the e2e test scenarios pass.
+Lastly, to check if all the e2e test scenarios pass:
 
 ```bash
   pnpm test-e2e
