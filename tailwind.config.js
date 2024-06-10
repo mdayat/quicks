@@ -41,11 +41,34 @@ export default {
       },
       animation: {
         rotation: "rotation 1s linear infinite",
+        inboxesIn: "inboxesIn 300ms linear",
+        tasksIn: "tasksIn 300ms linear",
+        tasksSlide: "tasksSlide 300ms linear",
       },
       keyframes: {
         rotation: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
+        },
+        inboxesIn: {
+          "0%": {
+            transform: "translateX(calc(-68px + -24px))",
+            visibility: "visible",
+          },
+          "100%": { transform: "translateX(0px)", visibility: "hidden" },
+        },
+        tasksIn: {
+          "0%": {
+            transform: "translateX(calc(-68px + -24px + -60px + -24px))",
+            visibility: "visible",
+          },
+          "100%": { transform: "translateX(0px)", visibility: "hidden" },
+        },
+        tasksSlide: {
+          "0%": {
+            transform: "translateX(calc(-68px + -24px + -60px + -24px))",
+          },
+          "100%": { transform: "translateX(calc(-68px + -24px))" },
         },
       },
     },
