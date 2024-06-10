@@ -69,13 +69,6 @@ I've already used pnpm for two years, and I'm happy about it. Since it's faster 
 
 I use react because it's a framework (yes, react is a framework) that will be used as described in the job requirements. As for react-router, I simply used it because it's the most popular routing library out there. Lastly, of course, vite is faster than webpack; why not?
 
-### playwright
-
-I use Playwright only to do e2e testing. I define e2e testing as a testing method that tests a flow or scenario, like registration flow. Also, it supports various test runners, programming languages, parallel execution, and, yep, I love headless testing. Here's the list of scenarios that need to be tested:
-
-1. Able to create a new message
-2. Able to search an inbox or inboxes and see an "empty component" if the searched inbox or inboxes are not found
-
 ### code base architecture
 
 I just simply grouping the same "entity" into a directory; I called it horizontal slice architecture. As the project becomes more complex, restructuring the architecture is needed.
@@ -85,3 +78,14 @@ I just simply grouping the same "entity" into a directory; I called it horizonta
 Each message definitely has a date to indicate the date it was created. I use that data to sort the message from oldest to newest using bubble sort to get done quickly; a more efficient sorting algorithm like quick sort is encouraged. You can check the sort function in `src/utils/inbox.ts` and see a function with the name `sortMsgFromOldestToNewest`.
 
 Sorted messages are not enough; I need to group these sorted messages to support UI rendering. I chose to use `hashmap` to group this message. In short, each month has a list of dates, and each date has a list of messages. You can check the sort function in `src/utils/inbox.ts` and see a function with the name `groupMsgByDate`. There's still room to make this function better; I'll do it once I have time to make it better.
+
+### playwright
+
+I use Playwright only to do e2e testing. I define e2e testing as a testing method that tests a flow or scenario, like registration flow. Also, it supports various test runners, programming languages, parallel execution, and, yep, I love headless testing. Here's the list of scenarios that need to be tested:
+
+1. Able to create a new message
+2. Able to search an inbox or inboxes and see an "empty component" if the searched inbox or inboxes are not found
+
+### husky
+
+I just use husky for all of my projects to support code-checking automation. Husky will help me identify if there's a code that does not comply with our convention described in `eslint` and `prettier`. You can use husky for other scenarios because it allows you to use git hooks easily.
