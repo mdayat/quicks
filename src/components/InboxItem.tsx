@@ -60,7 +60,11 @@ export function InboxItem({ id, name, type, lastMessage }: Inbox): JSX.Element {
         <div className="w-full flex flex-col justify-between gap-y-1">
           <div className="flex items-center gap-x-4 mb-1">
             <h2 className="text-primary-1 font-bold leading-none max-w-sm">
-              <Link id={id} to={`${id}`} className="focus:outline-none">
+              <Link
+                id={id}
+                to={`${id}`}
+                className="focus:outline-none pointer-events-none"
+              >
                 {name}
               </Link>
             </h2>
