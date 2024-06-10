@@ -54,7 +54,7 @@ export function Inbox(): JSX.Element {
           searchValue={searchValue}
           setSearchValue={setSearchValue}
         />
-        {isLoading ? <Loader text="Loading Chats..." /> : <></>}
+        {isLoading ? <Loader text="Loading Inboxes..." /> : <></>}
       </>
     );
   }
@@ -73,7 +73,12 @@ export function Inbox(): JSX.Element {
               return <InboxItem key={inbox.id} {...inbox} />;
             })
           ) : (
-            <div>There is no inbox</div>
+            <div className="flex flex-col justify-center items-center gap-y-6 h-[calc(737px-48px)] ${className}">
+              <h1 className="font-bold text-2xl">Oops!</h1>
+              <p className="text-primary-2 italic">
+                Inbox With Name "{searchValue}" Not Found
+              </p>
+            </div>
           )}
         </div>
       </>
@@ -89,7 +94,10 @@ export function Inbox(): JSX.Element {
             return <InboxItem key={inbox.id} {...inbox} />;
           })
         ) : (
-          <div>There is no inbox</div>
+          <div className="flex flex-col justify-center items-center gap-y-6 h-[calc(737px-48px)] ${className}">
+            <h1 className="font-bold text-2xl">Oops!</h1>
+            <p className="text-primary-2 italic">Inboxes Are Empty</p>
+          </div>
         )}
       </div>
     </>

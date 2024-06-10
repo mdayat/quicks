@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import { Inbox } from "./pages/Inbox";
 import { InboxDetail } from "./pages/InboxDetail";
+import { Error } from "./components/Error";
 
 export const router = createBrowserRouter([
   {
@@ -19,11 +20,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "tasks",
-        element: <div>this is tasks</div>,
+        element: <Error message="This Page Has Not Been Worked On." />,
       },
       {
         path: "tasks/:taskID",
-        element: <div>this is tasks with dynamic</div>,
+        element: <Error message="This Page Has Not Been Worked On." />,
+      },
+      {
+        path: "*",
+        element: <Error />,
       },
     ],
   },

@@ -11,9 +11,14 @@ export function Navigation(): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
   const { pathname } = useLocation();
 
+  const isNotFound =
+    pathname !== "/" &&
+    !pathname.includes("/inboxes") &&
+    !pathname.includes("/tasks");
+
   return (
     <footer className="flex justify-end items-center mt-4">
-      {pathname === "/" ? (
+      {pathname === "/" || isNotFound ? (
         <div className="relative">
           <button
             type="button"

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+import { Error } from "../components/Error";
 import { GenerateInboxContent } from "../components/InboxDetailContent";
 import { CreateMessage } from "../components/CreateMessage";
+import { Loader } from "../components/Loader";
 import { ArrowBack } from "../icons/ArrowBack";
 import { Close } from "../icons/Close";
 import { getInbox, getMessages } from "../api/inbox";
@@ -51,11 +53,11 @@ export function InboxDetail(): JSX.Element {
   }, [inboxID]);
 
   if (isLoading) {
-    return <div>LOADING</div>;
+    return <Loader text="Loading Chats..." />;
   }
 
   if (inboxDetail === undefined) {
-    return <div>404 page</div>;
+    return <Error message={`Inbox With ID "${inboxID}" Not Found`} />;
   }
 
   return (
